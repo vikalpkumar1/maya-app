@@ -103,7 +103,6 @@ class ActionExecutor(private val context: Context, private val voiceOutput: Voic
                 }
                 "memory_stats" -> systemStatsHelper.getMemorySummary()
                 "open_url" -> { openUrl(json.getString("url")); "Webpage khol diya" }
-                "bluetooth" -> { openBluetoothPanel(); "Bluetooth panel khol diya" }
                 "email" -> {
                     sendEmail(json.getString("to"), json.optString("subject", ""), json.optString("body", ""))
                     "Email ready hai"
@@ -235,15 +234,6 @@ class ActionExecutor(private val context: Context, private val voiceOutput: Voic
     private fun openUrl(url: String) {
         val fixedUrl = if (url.startsWith("http")) url else "https://$url"
         val intent = Intent(Intent.ACTION_VIEW, Uri.parse(fixedUrl))
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-        context.startActivity(intent)
-    }
-
-    private fun openBluetoothPanel() {
-        // Android 12+ no longer lets apps silently flip Bluetooth on/off —
-        // this opens the quick-toggle panel, which is Google's blessed
-        // replacement for programmatic control.
-        val intent = Intent(Settings.Panel.ACTION_BLUETOOTH_SETTINGS)
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
         context.startActivity(intent)
     }
