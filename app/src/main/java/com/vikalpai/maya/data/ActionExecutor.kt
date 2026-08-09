@@ -243,7 +243,7 @@ class ActionExecutor(private val context: Context, private val voiceOutput: Voic
         // Android 12+ no longer lets apps silently flip Bluetooth on/off —
         // this opens the quick-toggle panel, which is Google's blessed
         // replacement for programmatic control.
-        val intent = Intent(Settings.Panel.ACTION_BLUETOOTH)
+        val intent = Intent(Settings.Panel.ACTION_BLUETOOTH_SETTINGS)
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
         context.startActivity(intent)
     }
